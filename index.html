@@ -1441,11 +1441,13 @@ document.querySelectorAll('.ring-card').forEach((el, i) => {
   obs.observe(el);
 });
 
-// Reveal info cards, cert cards
+// Reveal info cards, cert cards, exp-card
+// Use the .reveal CSS class so the stylesheet (not inline styles) controls
+// visibility — inline styles can't be overridden by class-based transitions
 document.querySelectorAll('.icard, .ccard, .exp-card').forEach((el, i) => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = `opacity .6s ease ${i*.08}s, transform .6s cubic-bezier(.22,1,.36,1) ${i*.08}s`;
+  el.classList.add('reveal');
+  // Stagger each card slightly so they cascade in rather than all popping at once
+  el.style.transitionDelay = `${i * 0.08}s`;
   obs.observe(el);
 });
 
